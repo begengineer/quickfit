@@ -9,7 +9,7 @@ export async function GET(request: NextRequest) {
     const excludeIdsParam = searchParams.get('excludeIds');
 
     // バリデーション
-    if (!level || !['beginner', 'intermediate', 'advanced'].includes(level)) {
+    if (!level || !['beginner', 'intermediate', 'advanced', 'bodyweight'].includes(level)) {
       return NextResponse.json<GetVideoResponse>(
         { success: false, error: 'Invalid level parameter' },
         { status: 400 }

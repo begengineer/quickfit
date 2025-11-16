@@ -1,18 +1,18 @@
 export const ja = {
   // ヘッダー
   siteTitle: "QuickFit",
-  siteSubtitle: "10分サーキットトレーニング動画",
+  siteSubtitle: "サーキット・自重トレーニング動画",
 
   // 使い方セクション
   howToUse: {
     title: "使い方",
     step1: {
       title: "1. 難易度を選択",
-      description: "あなたの運動レベルに合わせて、初級・中級・上級から選択してください。"
+      description: "初級・中級・上級から選択。器具不要の自重トレーニングもあります。"
     },
     step2: {
       title: "2. 動画を探す",
-      description: "ボタンをクリックすると、選択した難易度に合わせた10分以内のサーキットトレーニング動画が表示されます。"
+      description: "ボタンをクリックすると、選択した難易度に合わせたトレーニング動画が表示されます。"
     },
     step3: {
       title: "3. トレーニング開始",
@@ -34,6 +34,10 @@ export const ja = {
     advanced: {
       title: "上級",
       description: "ハードなトレーニングを求める方向け"
+    },
+    bodyweight: {
+      title: "自重系",
+      description: "器具不要、自分の体重だけでトレーニング"
     },
     findVideo: "動画を探す",
     searching: "動画を探しています...",

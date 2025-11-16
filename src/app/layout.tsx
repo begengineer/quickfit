@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "QuickFit - 10分サーキットトレーニング動画",
-  description: "10分以内のサーキットトレーニング動画を難易度別にご提案。自宅やジムで手軽にエクササイズを始めましょう。",
-  keywords: ["サーキットトレーニング", "ワークアウト", "フィットネス", "10分運動", "エクササイズ"],
+  title: "QuickFit - サーキットトレーニング・自重トレーニング動画",
+  description: "7～15分のサーキットトレーニング動画を難易度別にご提案。器具不要の自重トレーニングも充実。自宅やジムで手軽にエクササイズを始めましょう。",
+  keywords: ["サーキットトレーニング", "自重トレーニング", "ワークアウト", "フィットネス", "エクササイズ", "器具なし", "トレーニング動画"],
   openGraph: {
-    title: "QuickFit - 10分サーキットトレーニング動画",
-    description: "10分以内のサーキットトレーニング動画を難易度別にご提案",
+    title: "QuickFit - サーキットトレーニング・自重トレーニング動画",
+    description: "7～15分のサーキットトレーニング動画を難易度別にご提案。器具不要の自重トレーニングも充実。",
     type: "website",
   },
 };
@@ -30,7 +31,9 @@ export default function RootLayout({
             strategy="afterInteractive"
           />
         )}
-        {children}
+        <LanguageProvider>
+          {children}
+        </LanguageProvider>
       </body>
     </html>
   );

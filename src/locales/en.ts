@@ -3,18 +3,18 @@ import { Translations } from './ja';
 export const en: Translations = {
   // Header
   siteTitle: "QuickFit",
-  siteSubtitle: "10-Minute Circuit Training Videos",
+  siteSubtitle: "Circuit & Bodyweight Training Videos",
 
   // How to Use Section
   howToUse: {
     title: "How to Use",
     step1: {
       title: "1. Select Your Level",
-      description: "Choose beginner, intermediate, or advanced based on your fitness level."
+      description: "Choose beginner, intermediate, advanced, or bodyweight (no equipment needed)."
     },
     step2: {
       title: "2. Find a Video",
-      description: "Click the button to get a 10-minute circuit training video matched to your selected level."
+      description: "Click the button to get a training video matched to your selected level."
     },
     step3: {
       title: "3. Start Training",
@@ -36,6 +36,10 @@ export const en: Translations = {
     advanced: {
       title: "Advanced",
       description: "For those seeking intense workouts"
+    },
+    bodyweight: {
+      title: "Bodyweight",
+      description: "No equipment needed, train with your own body weight"
     },
     findVideo: "Find a Video",
     searching: "Searching for videos...",

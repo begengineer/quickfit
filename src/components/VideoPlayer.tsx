@@ -1,6 +1,7 @@
 'use client';
 
 import { Video } from '@/types';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface VideoPlayerProps {
   video: Video;
@@ -8,6 +9,7 @@ interface VideoPlayerProps {
 }
 
 export default function VideoPlayer({ video, onRefresh }: VideoPlayerProps) {
+  const { t } = useLanguage();
   return (
     <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
       {/* YouTube埋め込みプレーヤー */}
@@ -34,8 +36,8 @@ export default function VideoPlayer({ video, onRefresh }: VideoPlayerProps) {
 
       {/* 動画情報 */}
       <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-        <span>⏱️ {Math.floor(video.duration_sec / 60)}分{video.duration_sec % 60}秒</span>
-        <span>👁️ {video.view_count.toLocaleString()} 回視聴</span>
+        <span>⏱️ {Math.floor(video.duration_sec / 60)}{t.video.duration} {video.duration_sec % 60}s</span>
+        <span>👁️ {video.view_count.toLocaleString()} {t.video.views}</span>
       </div>
 
       {/* 別の動画ボタン */}
@@ -43,7 +45,7 @@ export default function VideoPlayer({ video, onRefresh }: VideoPlayerProps) {
         onClick={onRefresh}
         className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
       >
-        別の動画をもう1本
+        {t.main.anotherVideo}
       </button>
     </div>
   );

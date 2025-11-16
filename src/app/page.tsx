@@ -4,8 +4,12 @@ import { useState, useEffect } from 'react';
 import { Video, VideoLevel } from '@/types';
 import VideoPlayer from '@/components/VideoPlayer';
 import AdSense from '@/components/AdSense';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
+import { useLanguage } from '@/contexts/LanguageContext';
+import Link from 'next/link';
 
 export default function Home() {
+  const { t } = useLanguage();
   const [level, setLevel] = useState<VideoLevel>('beginner');
   const [video, setVideo] = useState<Video | null>(null);
   const [loading, setLoading] = useState(false);
@@ -39,7 +43,7 @@ export default function Home() {
       );
 
       if (!response.ok) {
-        throw new Error('動画の取得に失敗しました');
+        throw new Error(t.error.fetchFailed);
       }
 
       const data = await response.json();
@@ -48,10 +52,10 @@ export default function Home() {
         setVideo(data.video);
         addToWatched(data.video.video_id);
       } else {
-        setError(data.error || '動画が見つかりませんでした');
+        setError(data.error || t.error.noVideos);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : '予期せぬエラーが発生しました');
+      setError(err instanceof Error ? err.message : t.error.unexpectedError);
     } finally {
       setLoading(false);
     }
@@ -74,10 +78,13 @@ export default function Home() {
       {/* ヘッダー */}
       <header className="bg-blue-600 text-white py-6 shadow-md">
         <div className="container mx-auto px-4">
-          <h1 className="text-4xl font-bold text-center">QuickFit</h1>
-          <p className="text-center mt-2 text-blue-100">
-            10分サーキットトレーニング動画
-          </p>
+          <div className="flex justify-between items-center">
+            <div>
+              <h1 className="text-4xl font-bold">{t.siteTitle}</h1>
+              <p className="mt-2 text-blue-100">{t.siteSubtitle}</p>
+            </div>
+            <LanguageSwitcher />
+          </div>
         </div>
       </header>
 
@@ -86,13 +93,64 @@ export default function Home() {
         <AdSense className="max-w-4xl mx-auto" />
       </div>
 
+      {/* 使い方セクション */}
+      {!video && (
+        <div className="container mx-auto px-4 py-8">
+          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 mb-8">
+            <h2 className="text-3xl font-bold text-center mb-8 text-blue-600">
+              {t.howToUse.title}
+            </h2>
+            <div className="grid md:grid-cols-3 gap-6">
+              {/* ステップ1 */}
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                  1
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {t.howToUse.step1.title}
+                </h3>
+                <p className="text-gray-600">
+                  {t.howToUse.step1.description}
+                </p>
+              </div>
+
+              {/* ステップ2 */}
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                  2
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {t.howToUse.step2.title}
+                </h3>
+                <p className="text-gray-600">
+                  {t.howToUse.step2.description}
+                </p>
+              </div>
+
+              {/* ステップ3 */}
+              <div className="text-center">
+                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                  3
+                </div>
+                <h3 className="text-xl font-semibold mb-2">
+                  {t.howToUse.step3.title}
+                </h3>
+                <p className="text-gray-600">
+                  {t.howToUse.step3.description}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* メインコンテンツ */}
       <main className="container mx-auto px-4 py-8">
         {/* 難易度選択フォーム */}
         {!video && (
           <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
             <h2 className="text-2xl font-bold mb-6 text-center">
-              難易度を選択してください
+              {t.main.selectLevel}
             </h2>
 
             <div className="space-y-4 mb-6">
@@ -106,9 +164,9 @@ export default function Home() {
                   className="w-5 h-5 text-blue-600"
                 />
                 <div className="ml-4">
-                  <span className="text-lg font-semibold">初級</span>
+                  <span className="text-lg font-semibold">{t.main.beginner.title}</span>
                   <p className="text-sm text-gray-600">
-                    運動初心者向け、ゆっくりとしたペース
+                    {t.main.beginner.description}
                   </p>
                 </div>
               </label>
@@ -123,9 +181,9 @@ export default function Home() {
                   className="w-5 h-5 text-blue-600"
                 />
                 <div className="ml-4">
-                  <span className="text-lg font-semibold">中級</span>
+                  <span className="text-lg font-semibold">{t.main.intermediate.title}</span>
                   <p className="text-sm text-gray-600">
-                    ある程度運動習慣がある方向け
+                    {t.main.intermediate.description}
                   </p>
                 </div>
               </label>
@@ -140,9 +198,26 @@ export default function Home() {
                   className="w-5 h-5 text-blue-600"
                 />
                 <div className="ml-4">
-                  <span className="text-lg font-semibold">上級</span>
+                  <span className="text-lg font-semibold">{t.main.advanced.title}</span>
                   <p className="text-sm text-gray-600">
-                    ハードなトレーニングを求める方向け
+                    {t.main.advanced.description}
+                  </p>
+                </div>
+              </label>
+
+              <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-green-50 transition-colors border-green-400">
+                <input
+                  type="radio"
+                  name="level"
+                  value="bodyweight"
+                  checked={level === 'bodyweight'}
+                  onChange={(e) => setLevel(e.target.value as VideoLevel)}
+                  className="w-5 h-5 text-green-600"
+                />
+                <div className="ml-4">
+                  <span className="text-lg font-semibold text-green-700">{t.main.bodyweight.title}</span>
+                  <p className="text-sm text-gray-600">
+                    {t.main.bodyweight.description}
                   </p>
                 </div>
               </label>
@@ -153,7 +228,7 @@ export default function Home() {
               disabled={loading}
               className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
             >
-              {loading ? '動画を探しています...' : '動画を探す'}
+              {loading ? t.main.searching : t.main.findVideo}
             </button>
 
             {error && (
@@ -181,7 +256,7 @@ export default function Home() {
                 }}
                 className="text-blue-600 hover:text-blue-800 underline"
               >
-                難易度を変更する
+                {t.main.changeLevel}
               </button>
             </div>
           </div>
@@ -192,14 +267,14 @@ export default function Home() {
       <footer className="bg-gray-100 py-8 mt-16">
         <div className="container mx-auto px-4 text-center text-gray-600">
           <div className="space-x-6 mb-4">
-            <a href="/privacy-policy" className="hover:text-blue-600">
-              プライバシーポリシー
-            </a>
-            <a href="/terms" className="hover:text-blue-600">
-              利用規約
-            </a>
+            <Link href="/privacy-policy" className="hover:text-blue-600">
+              {t.footer.privacyPolicy}
+            </Link>
+            <Link href="/terms" className="hover:text-blue-600">
+              {t.footer.terms}
+            </Link>
           </div>
-          <p className="text-sm">© 2025 QuickFit. All rights reserved.</p>
+          <p className="text-sm">{t.footer.copyright}</p>
         </div>
       </footer>
     </div>

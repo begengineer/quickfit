@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'プライバシーポリシー | QuickFit',
@@ -89,9 +90,9 @@ export default function PrivacyPolicy() {
         </div>
 
         <div className="mt-8 text-center">
-          <a href="/" className="text-blue-600 hover:text-blue-800 underline">
+          <Link href="/" className="text-blue-600 hover:text-blue-800 underline">
             トップページに戻る
-          </a>
+          </Link>
         </div>
       </main>
     </div>

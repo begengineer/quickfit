@@ -35,11 +35,12 @@ export async function GET(request: NextRequest) {
   }
 
   try {
-    const levels: VideoLevel[] = ['beginner', 'intermediate', 'advanced'];
+    const levels: VideoLevel[] = ['beginner', 'intermediate', 'advanced', 'bodyweight'];
     const stats = {
       beginner: 0,
       intermediate: 0,
       advanced: 0,
+      bodyweight: 0,
     };
 
     // 各レベルごとに処理
@@ -60,8 +61,11 @@ export async function GET(request: NextRequest) {
         const videoDetails = await getVideoDetails(videoIds);
         console.log(`Got details for ${videoDetails.length} videos`);
 
-        // 3. フィルタリング（10分以内 + 難易度判定）
-        const filteredVideos = filterVideos(videoDetails, level);
+        // 3. フィルタリング（7～15分 + 難易度判定、自重系は3～20分）
+        const filteredVideos =
+          level === 'bodyweight'
+            ? filterVideos(videoDetails, level, 180, 1200) // 自重系: 3～20分
+            : filterVideos(videoDetails, level); // 他: 7～15分
         console.log(`Filtered to ${filteredVideos.length} videos`);
 
         // 4. スコア計算して保存

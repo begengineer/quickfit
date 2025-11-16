@@ -17,6 +17,8 @@ export function generateSearchQuery(level: VideoLevel): string {
       return `${baseQuery} (intermediate OR 中級)`;
     case 'advanced':
       return `${baseQuery} (advanced OR 上級 OR ハード OR 高強度)`;
+    case 'bodyweight':
+      return `サーキットトレーニング 自重 OR 自重トレーニング OR 器具なし OR 自宅トレーニング`;
     default:
       return baseQuery;
   }
@@ -42,8 +44,9 @@ export async function searchVideos(
       q: query,
       type: ['video'],
       maxResults,
-      videoDuration: 'short', // 4分未満（後でフィルタ）
+      videoDuration: 'medium', // 4～20分（後で7～15分にフィルタ）
       relevanceLanguage: 'ja',
+      regionCode: 'JP', // 日本地域の動画を優先
       order: 'relevance',
     });
 
@@ -136,39 +139,68 @@ function parseDuration(duration: string): number {
 }
 
 /**
- * 動画をフィルタリング（10分以内、タイトル・説明で難易度判定）
+ * 日本語が含まれているかチェック（ひらがな、カタカナ、漢字）
+ */
+function hasJapanese(text: string): boolean {
+  const japaneseRegex = /[\u3040-\u309F\u30A0-\u30FF\u4E00-\u9FAF]/;
+  return japaneseRegex.test(text);
+}
+
+/**
+ * 動画をフィルタリング（7～15分、日本語動画のみ、難易度判定）
  */
 export function filterVideos(
   videos: YouTubeVideoDetails[],
   level: VideoLevel,
-  maxDuration: number = 600 // 10分
+  minDuration: number = 420, // 7分
+  maxDuration: number = 900 // 15分
 ): YouTubeVideoDetails[] {
   return videos.filter((video) => {
-    // 時間制限
-    if (video.durationSec > maxDuration) {
+    // 時間制限（7～15分）
+    if (video.durationSec < minDuration || video.durationSec > maxDuration) {
       return false;
     }
 
-    // タイトル・説明文で難易度を再判定（簡易版）
+    // 日本語動画のみ（タイトルに日本語が含まれているかチェック）
+    // ただし、自重系の場合は日本語チェックをスキップ
+    if (level !== 'bodyweight' && !hasJapanese(video.title)) {
+      return false;
+    }
+
+    // タイトル・説明文で難易度を再判定（緩和版）
     const text = `${video.title} ${video.description}`.toLowerCase();
 
     switch (level) {
       case 'beginner':
+        // 初級は明示的に初心者向けキーワードがある動画のみ
         return (
           text.includes('beginner') ||
           text.includes('初級') ||
           text.includes('初心者') ||
-          text.includes('for beginners')
+          text.includes('for beginners') ||
+          text.includes('easy')
         );
       case 'intermediate':
-        return text.includes('intermediate') || text.includes('中級');
+        // 中級は初心者向けキーワードがなければOK
+        const hasBeginnerKeywords =
+          text.includes('beginner') ||
+          text.includes('初級') ||
+          text.includes('初心者') ||
+          text.includes('for beginners');
+        return !hasBeginnerKeywords;
       case 'advanced':
-        return (
-          text.includes('advanced') ||
-          text.includes('上級') ||
-          text.includes('ハード') ||
-          text.includes('高強度')
-        );
+        // 上級も初心者向けキーワードがなければOK（より厳しい動画を含む）
+        const hasBeginnerKeywordsAdv =
+          text.includes('beginner') ||
+          text.includes('初級') ||
+          text.includes('初心者') ||
+          text.includes('for beginners');
+        return !hasBeginnerKeywordsAdv;
+      case 'bodyweight':
+        // 自重系は検索クエリで既にフィルタ済みなので、時間と日本語チェックのみ
+        // 検索クエリに「自重」「bodyweight」などが含まれているため、
+        // 返ってくる動画は基本的に自重系に関連している
+        return true;
       default:
         return true;
     }
@@ -176,11 +208,11 @@ export function filterVideos(
 }
 
 /**
- * 独自スコアを計算（再生数 + 新しさ）
+ * 独自スコアを計算（再生数重視 + 新しさ）
  */
 export function calculateScore(video: YouTubeVideoDetails): number {
-  const viewWeight = 0.001; // 再生数の重み
-  const ageWeight = 10000; // 新しさの重み（日数）
+  const viewWeight = 0.1; // 再生数の重み（大幅に増加）
+  const ageWeight = 1000; // 新しさの重み（日数）
 
   // 公開日からの日数
   const publishedDate = new Date(video.publishedAt);
@@ -189,9 +221,9 @@ export function calculateScore(video: YouTubeVideoDetails): number {
     (now.getTime() - publishedDate.getTime()) / (1000 * 60 * 60 * 24)
   );
 
-  // スコア計算（再生数が多く、新しいほど高スコア）
+  // スコア計算（再生数を重視、新しさもボーナス）
   const viewScore = video.viewCount * viewWeight;
-  const ageScore = Math.max(0, ageWeight - daysSincePublished * 10);
+  const ageScore = Math.max(0, ageWeight - daysSincePublished);
 
   return viewScore + ageScore;
 }

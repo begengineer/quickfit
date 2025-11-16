@@ -1,5 +1,5 @@
-// 動画レベル（難易度）
-export type VideoLevel = 'beginner' | 'intermediate' | 'advanced';
+// 動画レベル（難易度 + トレーニングタイプ）
+export type VideoLevel = 'beginner' | 'intermediate' | 'advanced' | 'bodyweight';
 
 // 動画データモデル
 export interface Video {
@@ -51,6 +51,7 @@ export interface BatchUpdateResponse {
     beginner: number;
     intermediate: number;
     advanced: number;
+    bodyweight: number;
   };
   error?: string;
 }
