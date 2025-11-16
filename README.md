@@ -52,55 +52,6 @@
 └── README.md
 ```
 
-## API エンドポイント
-
-### GET /api/videos
-
-動画を取得します。
-
-**クエリパラメータ:**
-- `level`: 難易度（`beginner` | `intermediate` | `advanced`）
-- `excludeIds`: 除外する動画ID（カンマ区切り）
-
-**レスポンス例:**
-```json
-{
-  "success": true,
-  "video": {
-    "id": "abc123",
-    "video_id": "dQw4w9WgXcQ",
-    "level": "beginner",
-    "title": "10分サーキットトレーニング",
-    "description": "...",
-    "thumbnail_url": "https://...",
-    "duration_sec": 600,
-    "view_count": 10000,
-    "published_at": "2024-01-01T00:00:00Z",
-    "score": 5000,
-    "updated_at": "2025-11-16T00:00:00Z"
-  }
-}
-```
-
-### GET /api/cron/update-videos
-
-バッチ処理でYouTube APIから動画を取得・更新します。
-
-**ヘッダー:**
-- `Authorization: Bearer <CRON_SECRET>`
-
-**レスポンス例:**
-```json
-{
-  "success": true,
-  "message": "Batch update completed successfully",
-  "stats": {
-    "beginner": 50,
-    "intermediate": 48,
-    "advanced": 45
-  }
-}
-```
 
 ## ライセンス
 
