@@ -12,6 +12,9 @@ export const metadata: Metadata = {
     description: "器具不要の自重トレーニング動画を厳選してご提案。5～20分で自宅で手軽にトレーニング。",
     type: "website",
   },
+  other: {
+    'google-adsense-account': 'ca-pub-6711866419254079',
+  },
 };
 
 export default function RootLayout({
