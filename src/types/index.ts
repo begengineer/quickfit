@@ -48,9 +48,6 @@ export interface BatchUpdateResponse {
   success: boolean;
   message: string;
   stats?: {
-    beginner: number;
-    intermediate: number;
-    advanced: number;
     bodyweight: number;
   };
   error?: string;
