@@ -3,22 +3,22 @@ import { Translations } from './ja';
 export const en: Translations = {
   // Header
   siteTitle: "QuickFit",
-  siteSubtitle: "Circuit & Bodyweight Training Videos",
+  siteSubtitle: "Bodyweight Training - No Equipment Needed",
 
   // How to Use Section
   howToUse: {
     title: "How to Use",
     step1: {
-      title: "1. Select Your Level",
-      description: "Choose beginner, intermediate, advanced, or bodyweight (no equipment needed)."
+      title: "1. Find a Video",
+      description: "Just click the 'Find a Video' button!"
     },
     step2: {
-      title: "2. Find a Video",
-      description: "Click the button to get a training video matched to your selected level."
+      title: "2. Start Training",
+      description: "A 5-20 minute bodyweight training video will appear (no equipment needed)."
     },
     step3: {
-      title: "3. Start Training",
-      description: "Follow along with the video! Don't like it? Click 'Get Another Video' to find a different one."
+      title: "3. Try Another",
+      description: "Don't like it? Click 'Get Another Video' to find a different one."
     }
   },
 
@@ -44,7 +44,7 @@ export const en: Translations = {
     findVideo: "Find a Video",
     searching: "Searching for videos...",
     anotherVideo: "Get Another Video",
-    changeLevel: "Change Difficulty Level"
+    backToTop: "Back to Top"
   },
 
   // Video Info

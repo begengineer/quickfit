@@ -1,22 +1,22 @@
 export const ja = {
   // ヘッダー
   siteTitle: "QuickFit",
-  siteSubtitle: "サーキット・自重トレーニング動画",
+  siteSubtitle: "器具不要の自重トレーニング",
 
   // 使い方セクション
   howToUse: {
     title: "使い方",
     step1: {
-      title: "1. 難易度を選択",
-      description: "初級・中級・上級から選択。器具不要の自重トレーニングもあります。"
+      title: "1. 動画を探す",
+      description: "「動画を探す」ボタンをクリックするだけ！"
     },
     step2: {
-      title: "2. 動画を探す",
-      description: "ボタンをクリックすると、選択した難易度に合わせたトレーニング動画が表示されます。"
+      title: "2. トレーニング開始",
+      description: "5～20分の器具不要の自重トレーニング動画が表示されます。"
     },
     step3: {
-      title: "3. トレーニング開始",
-      description: "動画を見ながらトレーニング！気に入らなければ「別の動画をもう1本」ボタンで他の動画を探せます。"
+      title: "3. 別の動画を試す",
+      description: "気に入らなければ「別の動画をもう1本」で他の動画を探せます。"
     }
   },
 
@@ -42,7 +42,7 @@ export const ja = {
     findVideo: "動画を探す",
     searching: "動画を探しています...",
     anotherVideo: "別の動画をもう1本",
-    changeLevel: "難易度を変更する"
+    backToTop: "トップに戻る"
   },
 
   // 動画情報

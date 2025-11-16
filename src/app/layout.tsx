@@ -4,12 +4,12 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "QuickFit - サーキットトレーニング・自重トレーニング動画",
-  description: "7～15分のサーキットトレーニング動画を難易度別にご提案。器具不要の自重トレーニングも充実。自宅やジムで手軽にエクササイズを始めましょう。",
-  keywords: ["サーキットトレーニング", "自重トレーニング", "ワークアウト", "フィットネス", "エクササイズ", "器具なし", "トレーニング動画"],
+  title: "QuickFit - 器具不要の自重トレーニング動画",
+  description: "器具不要の自重トレーニング動画を厳選してご提案。5～20分で自宅で手軽にサーキットトレーニング。",
+  keywords: ["自重トレーニング", "器具なし", "サーキットトレーニング", "自宅トレーニング", "ワークアウト", "フィットネス", "エクササイズ"],
   openGraph: {
-    title: "QuickFit - サーキットトレーニング・自重トレーニング動画",
-    description: "7～15分のサーキットトレーニング動画を難易度別にご提案。器具不要の自重トレーニングも充実。",
+    title: "QuickFit - 器具不要の自重トレーニング動画",
+    description: "器具不要の自重トレーニング動画を厳選してご提案。5～20分で自宅で手軽にトレーニング。",
     type: "website",
   },
 };

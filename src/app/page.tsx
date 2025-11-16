@@ -10,7 +10,6 @@ import Link from 'next/link';
 
 export default function Home() {
   const { t } = useLanguage();
-  const [level, setLevel] = useState<VideoLevel>('beginner');
   const [video, setVideo] = useState<Video | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -32,14 +31,14 @@ export default function Home() {
   };
 
   // 動画を取得
-  const fetchVideo = async (selectedLevel: VideoLevel) => {
+  const fetchVideo = async () => {
     setLoading(true);
     setError(null);
 
     try {
       const excludeIds = watchedIds.join(',');
       const response = await fetch(
-        `/api/videos?level=${selectedLevel}&excludeIds=${excludeIds}`
+        `/api/videos?excludeIds=${excludeIds}`
       );
 
       if (!response.ok) {
@@ -63,14 +62,12 @@ export default function Home() {
 
   // 動画を探すボタン
   const handleSearch = () => {
-    fetchVideo(level);
+    fetchVideo();
   };
 
   // 別の動画をもう1本
   const handleRefresh = () => {
-    if (video) {
-      fetchVideo(video.level);
-    }
+    fetchVideo();
   };
 
   return (
@@ -146,87 +143,13 @@ export default function Home() {
 
       {/* メインコンテンツ */}
       <main className="container mx-auto px-4 py-8">
-        {/* 難易度選択フォーム */}
+        {/* 動画検索ボタン（難易度選択なし、自重系のみ） */}
         {!video && (
           <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
-            <h2 className="text-2xl font-bold mb-6 text-center">
-              {t.main.selectLevel}
-            </h2>
-
-            <div className="space-y-4 mb-6">
-              <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">
-                <input
-                  type="radio"
-                  name="level"
-                  value="beginner"
-                  checked={level === 'beginner'}
-                  onChange={(e) => setLevel(e.target.value as VideoLevel)}
-                  className="w-5 h-5 text-blue-600"
-                />
-                <div className="ml-4">
-                  <span className="text-lg font-semibold">{t.main.beginner.title}</span>
-                  <p className="text-sm text-gray-600">
-                    {t.main.beginner.description}
-                  </p>
-                </div>
-              </label>
-
-              <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">
-                <input
-                  type="radio"
-                  name="level"
-                  value="intermediate"
-                  checked={level === 'intermediate'}
-                  onChange={(e) => setLevel(e.target.value as VideoLevel)}
-                  className="w-5 h-5 text-blue-600"
-                />
-                <div className="ml-4">
-                  <span className="text-lg font-semibold">{t.main.intermediate.title}</span>
-                  <p className="text-sm text-gray-600">
-                    {t.main.intermediate.description}
-                  </p>
-                </div>
-              </label>
-
-              <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-blue-50 transition-colors">
-                <input
-                  type="radio"
-                  name="level"
-                  value="advanced"
-                  checked={level === 'advanced'}
-                  onChange={(e) => setLevel(e.target.value as VideoLevel)}
-                  className="w-5 h-5 text-blue-600"
-                />
-                <div className="ml-4">
-                  <span className="text-lg font-semibold">{t.main.advanced.title}</span>
-                  <p className="text-sm text-gray-600">
-                    {t.main.advanced.description}
-                  </p>
-                </div>
-              </label>
-
-              <label className="flex items-center p-4 border-2 rounded-lg cursor-pointer hover:bg-green-50 transition-colors border-green-400">
-                <input
-                  type="radio"
-                  name="level"
-                  value="bodyweight"
-                  checked={level === 'bodyweight'}
-                  onChange={(e) => setLevel(e.target.value as VideoLevel)}
-                  className="w-5 h-5 text-green-600"
-                />
-                <div className="ml-4">
-                  <span className="text-lg font-semibold text-green-700">{t.main.bodyweight.title}</span>
-                  <p className="text-sm text-gray-600">
-                    {t.main.bodyweight.description}
-                  </p>
-                </div>
-              </label>
-            </div>
-
             <button
               onClick={handleSearch}
               disabled={loading}
-              className="w-full bg-blue-600 hover:bg-blue-700 disabled:bg-gray-400 text-white font-bold py-4 px-6 rounded-lg transition-colors text-lg"
+              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-6 px-8 rounded-lg transition-colors text-xl"
             >
               {loading ? t.main.searching : t.main.findVideo}
             </button>
@@ -247,16 +170,16 @@ export default function Home() {
               <AdSense />
             </div>
 
-            {/* レベル変更ボタン */}
+            {/* トップに戻るボタン */}
             <div className="text-center">
               <button
                 onClick={() => {
                   setVideo(null);
                   setError(null);
                 }}
-                className="text-blue-600 hover:text-blue-800 underline"
+                className="text-green-600 hover:text-green-800 underline font-semibold"
               >
-                {t.main.changeLevel}
+                {t.main.backToTop}
               </button>
             </div>
           </div>

@@ -5,23 +5,11 @@ const youtube = google.youtube('v3');
 const API_KEY = process.env.YOUTUBE_API_KEY;
 
 /**
- * 難易度に応じた検索クエリを生成
+ * 自重系トレーニングの検索クエリを生成
  */
 export function generateSearchQuery(level: VideoLevel): string {
-  const baseQuery = 'circuit training workout';
-
-  switch (level) {
-    case 'beginner':
-      return `${baseQuery} (beginner OR "for beginners" OR 初級 OR 初心者)`;
-    case 'intermediate':
-      return `${baseQuery} (intermediate OR 中級)`;
-    case 'advanced':
-      return `${baseQuery} (advanced OR 上級 OR ハード OR 高強度)`;
-    case 'bodyweight':
-      return `サーキットトレーニング 自重 OR 自重トレーニング OR 器具なし OR 自宅トレーニング`;
-    default:
-      return baseQuery;
-  }
+  // 自重系のみ
+  return `サーキットトレーニング 自重 OR 自重トレーニング OR 器具なし OR 自宅トレーニング`;
 }
 
 /**
@@ -147,63 +135,29 @@ function hasJapanese(text: string): boolean {
 }
 
 /**
- * 動画をフィルタリング（7～15分、日本語動画のみ、難易度判定）
+ * 動画をフィルタリング（自重系トレーニング専用）
+ * - 時間制限: 5～20分
+ * - 日本語動画のみ
  */
 export function filterVideos(
   videos: YouTubeVideoDetails[],
   level: VideoLevel,
-  minDuration: number = 420, // 7分
-  maxDuration: number = 900 // 15分
+  minDuration: number = 300, // 5分
+  maxDuration: number = 1200 // 20分
 ): YouTubeVideoDetails[] {
   return videos.filter((video) => {
-    // 時間制限（7～15分）
+    // 時間制限（5～20分）
     if (video.durationSec < minDuration || video.durationSec > maxDuration) {
       return false;
     }
 
     // 日本語動画のみ（タイトルに日本語が含まれているかチェック）
-    // ただし、自重系の場合は日本語チェックをスキップ
-    if (level !== 'bodyweight' && !hasJapanese(video.title)) {
+    if (!hasJapanese(video.title)) {
       return false;
     }
 
-    // タイトル・説明文で難易度を再判定（緩和版）
-    const text = `${video.title} ${video.description}`.toLowerCase();
-
-    switch (level) {
-      case 'beginner':
-        // 初級は明示的に初心者向けキーワードがある動画のみ
-        return (
-          text.includes('beginner') ||
-          text.includes('初級') ||
-          text.includes('初心者') ||
-          text.includes('for beginners') ||
-          text.includes('easy')
-        );
-      case 'intermediate':
-        // 中級は初心者向けキーワードがなければOK
-        const hasBeginnerKeywords =
-          text.includes('beginner') ||
-          text.includes('初級') ||
-          text.includes('初心者') ||
-          text.includes('for beginners');
-        return !hasBeginnerKeywords;
-      case 'advanced':
-        // 上級も初心者向けキーワードがなければOK（より厳しい動画を含む）
-        const hasBeginnerKeywordsAdv =
-          text.includes('beginner') ||
-          text.includes('初級') ||
-          text.includes('初心者') ||
-          text.includes('for beginners');
-        return !hasBeginnerKeywordsAdv;
-      case 'bodyweight':
-        // 自重系は検索クエリで既にフィルタ済みなので、時間と日本語チェックのみ
-        // 検索クエリに「自重」「bodyweight」などが含まれているため、
-        // 返ってくる動画は基本的に自重系に関連している
-        return true;
-      default:
-        return true;
-    }
+    // 検索クエリで既に自重系でフィルタ済みなので、それ以上の判定は不要
+    return true;
   });
 }
 

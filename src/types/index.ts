@@ -1,5 +1,5 @@
-// 動画レベル（難易度 + トレーニングタイプ）
-export type VideoLevel = 'beginner' | 'intermediate' | 'advanced' | 'bodyweight';
+// 動画レベル（自重系のみ）
+export type VideoLevel = 'bodyweight';
 
 // 動画データモデル
 export interface Video {

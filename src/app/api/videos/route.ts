@@ -5,16 +5,10 @@ import { VideoLevel, GetVideoResponse } from '@/types';
 export async function GET(request: NextRequest) {
   try {
     const searchParams = request.nextUrl.searchParams;
-    const level = searchParams.get('level') as VideoLevel;
     const excludeIdsParam = searchParams.get('excludeIds');
 
-    // バリデーション
-    if (!level || !['beginner', 'intermediate', 'advanced', 'bodyweight'].includes(level)) {
-      return NextResponse.json<GetVideoResponse>(
-        { success: false, error: 'Invalid level parameter' },
-        { status: 400 }
-      );
-    }
+    // 自重系固定
+    const level: VideoLevel = 'bodyweight';
 
     // 除外リストのパース
     const excludeIds = excludeIdsParam
