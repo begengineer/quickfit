@@ -1,0 +1,77 @@
+export const ja = {
+  // ヘッダー
+  siteTitle: "QuickFit",
+  siteSubtitle: "10分サーキットトレーニング動画",
+
+  // 使い方セクション
+  howToUse: {
+    title: "使い方",
+    step1: {
+      title: "1. 難易度を選択",
+      description: "あなたの運動レベルに合わせて、初級・中級・上級から選択してください。"
+    },
+    step2: {
+      title: "2. 動画を探す",
+      description: "ボタンをクリックすると、選択した難易度に合わせた10分以内のサーキットトレーニング動画が表示されます。"
+    },
+    step3: {
+      title: "3. トレーニング開始",
+      description: "動画を見ながらトレーニング！気に入らなければ「別の動画をもう1本」ボタンで他の動画を探せます。"
+    }
+  },
+
+  // メイン画面
+  main: {
+    selectLevel: "難易度を選択してください",
+    beginner: {
+      title: "初級",
+      description: "運動初心者向け、ゆっくりとしたペース"
+    },
+    intermediate: {
+      title: "中級",
+      description: "ある程度運動習慣がある方向け"
+    },
+    advanced: {
+      title: "上級",
+      description: "ハードなトレーニングを求める方向け"
+    },
+    findVideo: "動画を探す",
+    searching: "動画を探しています...",
+    anotherVideo: "別の動画をもう1本",
+    changeLevel: "難易度を変更する"
+  },
+
+  // 動画情報
+  video: {
+    views: "回視聴",
+    duration: "分"
+  },
+
+  // エラーメッセージ
+  error: {
+    noVideos: "動画が見つかりませんでした",
+    fetchFailed: "動画の取得に失敗しました",
+    unexpectedError: "予期せぬエラーが発生しました"
+  },
+
+  // フッター
+  footer: {
+    privacyPolicy: "プライバシーポリシー",
+    terms: "利用規約",
+    copyright: "© 2025 QuickFit. All rights reserved."
+  },
+
+  // プライバシーポリシー
+  privacy: {
+    title: "プライバシーポリシー",
+    backToHome: "トップページに戻る"
+  },
+
+  // 利用規約
+  terms: {
+    title: "利用規約",
+    backToHome: "トップページに戻る"
+  }
+};
+
+export type Translations = typeof ja;
