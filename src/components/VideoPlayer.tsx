@@ -11,9 +11,9 @@ interface VideoPlayerProps {
 export default function VideoPlayer({ video, onRefresh }: VideoPlayerProps) {
   const { t } = useLanguage();
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-6">
+    <div className="w-full max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-8 animate-scaleIn border border-gray-100">
       {/* YouTube埋め込みプレーヤー */}
-      <div className="aspect-video w-full mb-4">
+      <div className="aspect-video w-full mb-6 overflow-hidden rounded-xl shadow-lg">
         <iframe
           width="100%"
           height="100%"
@@ -22,28 +22,34 @@ export default function VideoPlayer({ video, onRefresh }: VideoPlayerProps) {
           frameBorder="0"
           allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen
-          className="rounded-lg"
+          className="rounded-xl"
         />
       </div>
 
       {/* タイトルと説明 */}
-      <div className="mb-4">
-        <h2 className="text-2xl font-bold mb-2">{video.title}</h2>
-        <p className="text-gray-600 text-sm line-clamp-3">
+      <div className="mb-6 animate-fadeIn">
+        <h2 className="text-3xl font-bold mb-3 text-gray-800 leading-tight">{video.title}</h2>
+        <p className="text-gray-600 text-base line-clamp-3 leading-relaxed">
           {video.description}
         </p>
       </div>
 
       {/* 動画情報 */}
-      <div className="flex items-center gap-4 text-sm text-gray-500 mb-4">
-        <span>⏱️ {Math.floor(video.duration_sec / 60)}{t.video.duration} {video.duration_sec % 60}s</span>
-        <span>👁️ {video.view_count.toLocaleString()} {t.video.views}</span>
+      <div className="flex items-center gap-6 text-base text-gray-600 mb-6 bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-lg animate-fadeIn">
+        <span className="flex items-center gap-2">
+          <span className="text-2xl">⏱️</span>
+          <span className="font-semibold">{Math.floor(video.duration_sec / 60)}{t.video.duration} {video.duration_sec % 60}s</span>
+        </span>
+        <span className="flex items-center gap-2">
+          <span className="text-2xl">👁️</span>
+          <span className="font-semibold">{video.view_count.toLocaleString()} {t.video.views}</span>
+        </span>
       </div>
 
       {/* 別の動画ボタン */}
       <button
         onClick={onRefresh}
-        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+        className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg btn-hover-lift text-lg"
       >
         {t.main.anotherVideo}
       </button>

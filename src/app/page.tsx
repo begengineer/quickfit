@@ -71,14 +71,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-white">
       {/* ヘッダー */}
-      <header className="bg-blue-600 text-white py-6 shadow-md">
+      <header className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-8 shadow-xl animate-slideDown">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-4xl font-bold">{t.siteTitle}</h1>
-              <p className="mt-2 text-blue-100">{t.siteSubtitle}</p>
+              <h1 className="text-5xl font-extrabold tracking-tight drop-shadow-lg">{t.siteTitle}</h1>
+              <p className="mt-2 text-green-100 text-lg">{t.siteSubtitle}</p>
             </div>
             <LanguageSwitcher />
           </div>
@@ -92,47 +92,47 @@ export default function Home() {
 
       {/* 使い方セクション */}
       {!video && (
-        <div className="container mx-auto px-4 py-8">
-          <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg p-8 mb-8">
-            <h2 className="text-3xl font-bold text-center mb-8 text-blue-600">
+        <div className="container mx-auto px-4 py-8 animate-fadeIn">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-10 mb-8 border border-gray-100">
+            <h2 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
               {t.howToUse.title}
             </h2>
-            <div className="grid md:grid-cols-3 gap-6">
+            <div className="grid md:grid-cols-3 gap-8">
               {/* ステップ1 */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div className="text-center animate-slideUp">
+                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
                   1
                 </div>
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-bold mb-3 text-gray-800">
                   {t.howToUse.step1.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 leading-relaxed">
                   {t.howToUse.step1.description}
                 </p>
               </div>
 
               {/* ステップ2 */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div className="text-center animate-slideUp animate-delay-100">
+                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
                   2
                 </div>
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-bold mb-3 text-gray-800">
                   {t.howToUse.step2.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 leading-relaxed">
                   {t.howToUse.step2.description}
                 </p>
               </div>
 
               {/* ステップ3 */}
-              <div className="text-center">
-                <div className="w-16 h-16 bg-blue-600 text-white rounded-full flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+              <div className="text-center animate-slideUp animate-delay-200">
+                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
                   3
                 </div>
-                <h3 className="text-xl font-semibold mb-2">
+                <h3 className="text-xl font-bold mb-3 text-gray-800">
                   {t.howToUse.step3.title}
                 </h3>
-                <p className="text-gray-600">
+                <p className="text-gray-600 leading-relaxed">
                   {t.howToUse.step3.description}
                 </p>
               </div>
@@ -145,17 +145,27 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8">
         {/* 動画検索ボタン（難易度選択なし、自重系のみ） */}
         {!video && (
-          <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
+          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-10 animate-scaleIn">
             <button
               onClick={handleSearch}
               disabled={loading}
-              className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white font-bold py-6 px-8 rounded-lg transition-colors text-xl"
+              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-bold py-8 px-10 rounded-xl transition-all text-2xl shadow-lg btn-hover-lift disabled:transform-none disabled:shadow-none"
             >
-              {loading ? t.main.searching : t.main.findVideo}
+              {loading ? (
+                <span className="flex items-center justify-center gap-3">
+                  <svg className="animate-spin h-6 w-6" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  {t.main.searching}
+                </span>
+              ) : (
+                t.main.findVideo
+              )}
             </button>
 
             {error && (
-              <p className="mt-4 text-red-600 text-center">{error}</p>
+              <p className="mt-6 text-red-600 text-center font-semibold animate-fadeIn">{error}</p>
             )}
           </div>
         )}
@@ -171,14 +181,17 @@ export default function Home() {
             </div>
 
             {/* トップに戻るボタン */}
-            <div className="text-center">
+            <div className="text-center animate-fadeIn">
               <button
                 onClick={() => {
                   setVideo(null);
                   setError(null);
                 }}
-                className="text-green-600 hover:text-green-800 underline font-semibold"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-50 text-green-600 hover:text-green-700 font-bold rounded-lg shadow-md hover:shadow-lg transition-all border-2 border-green-500"
               >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
                 {t.main.backToTop}
               </button>
             </div>
