@@ -71,14 +71,14 @@ export default function Home() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-green-50 to-white">
+    <div className="min-h-screen bg-gray-50">
       {/* ヘッダー */}
-      <header className="bg-gradient-to-r from-green-600 to-blue-600 text-white py-8 shadow-xl animate-slideDown">
+      <header className="bg-black text-white py-8 shadow-lg animate-slideDown">
         <div className="container mx-auto px-4">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-5xl font-extrabold tracking-tight drop-shadow-lg">{t.siteTitle}</h1>
-              <p className="mt-2 text-green-100 text-lg">{t.siteSubtitle}</p>
+              <h1 className="text-5xl font-extrabold tracking-tight">{t.siteTitle}</h1>
+              <p className="mt-2 text-gray-300 text-lg">{t.siteSubtitle}</p>
             </div>
             <LanguageSwitcher />
           </div>
@@ -93,17 +93,17 @@ export default function Home() {
       {/* 使い方セクション */}
       {!video && (
         <div className="container mx-auto px-4 py-8 animate-fadeIn">
-          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl p-10 mb-8 border border-gray-100">
-            <h2 className="text-4xl font-bold text-center mb-10 bg-gradient-to-r from-green-600 to-blue-600 bg-clip-text text-transparent">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-10 mb-8 border border-gray-200">
+            <h2 className="text-4xl font-bold text-center mb-10 text-gray-900">
               {t.howToUse.title}
             </h2>
             <div className="grid md:grid-cols-3 gap-8">
               {/* ステップ1 */}
               <div className="text-center animate-slideUp">
-                <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
+                <div className="w-20 h-20 bg-black text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
                   1
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">
+                <h3 className="text-xl font-bold mb-3 text-gray-900">
                   {t.howToUse.step1.title}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -113,10 +113,10 @@ export default function Home() {
 
               {/* ステップ2 */}
               <div className="text-center animate-slideUp animate-delay-100">
-                <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
+                <div className="w-20 h-20 bg-gray-800 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
                   2
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">
+                <h3 className="text-xl font-bold mb-3 text-gray-900">
                   {t.howToUse.step2.title}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -126,10 +126,10 @@ export default function Home() {
 
               {/* ステップ3 */}
               <div className="text-center animate-slideUp animate-delay-200">
-                <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
+                <div className="w-20 h-20 bg-gray-600 text-white rounded-full flex items-center justify-center text-3xl font-bold mx-auto mb-4 shadow-lg transform transition-transform hover:scale-110">
                   3
                 </div>
-                <h3 className="text-xl font-bold mb-3 text-gray-800">
+                <h3 className="text-xl font-bold mb-3 text-gray-900">
                   {t.howToUse.step3.title}
                 </h3>
                 <p className="text-gray-600 leading-relaxed">
@@ -145,11 +145,11 @@ export default function Home() {
       <main className="container mx-auto px-4 py-8">
         {/* 動画検索ボタン（難易度選択なし、自重系のみ） */}
         {!video && (
-          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-2xl p-10 animate-scaleIn">
+          <div className="max-w-2xl mx-auto bg-white rounded-2xl shadow-xl p-10 animate-scaleIn border border-gray-200">
             <button
               onClick={handleSearch}
               disabled={loading}
-              className="w-full bg-gradient-to-r from-green-500 to-green-600 hover:from-green-600 hover:to-green-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-bold py-8 px-10 rounded-xl transition-all text-2xl shadow-lg btn-hover-lift disabled:transform-none disabled:shadow-none"
+              className="w-full bg-black hover:bg-gray-800 disabled:bg-gray-400 text-white font-bold py-8 px-10 rounded-xl transition-all text-2xl shadow-lg btn-hover-lift disabled:transform-none disabled:shadow-none"
             >
               {loading ? (
                 <span className="flex items-center justify-center gap-3">
@@ -187,7 +187,7 @@ export default function Home() {
                   setVideo(null);
                   setError(null);
                 }}
-                className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-50 text-green-600 hover:text-green-700 font-bold rounded-lg shadow-md hover:shadow-lg transition-all border-2 border-green-500"
+                className="inline-flex items-center gap-2 px-6 py-3 bg-white hover:bg-gray-100 text-gray-900 hover:text-black font-bold rounded-lg shadow-md hover:shadow-lg transition-all border-2 border-gray-300 hover:border-gray-900"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />

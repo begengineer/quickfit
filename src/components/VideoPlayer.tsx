@@ -35,7 +35,7 @@ export default function VideoPlayer({ video, onRefresh }: VideoPlayerProps) {
       </div>
 
       {/* 動画情報 */}
-      <div className="flex items-center gap-6 text-base text-gray-600 mb-6 bg-gradient-to-r from-blue-50 to-green-50 p-4 rounded-lg animate-fadeIn">
+      <div className="flex items-center gap-6 text-base text-gray-700 mb-6 bg-gray-100 p-4 rounded-lg animate-fadeIn border border-gray-200">
         <span className="flex items-center gap-2">
           <span className="text-2xl">⏱️</span>
           <span className="font-semibold">{Math.floor(video.duration_sec / 60)}{t.video.duration} {video.duration_sec % 60}s</span>
@@ -49,7 +49,7 @@ export default function VideoPlayer({ video, onRefresh }: VideoPlayerProps) {
       {/* 別の動画ボタン */}
       <button
         onClick={onRefresh}
-        className="w-full bg-gradient-to-r from-blue-500 to-blue-600 hover:from-blue-600 hover:to-blue-700 text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg btn-hover-lift text-lg"
+        className="w-full bg-gray-900 hover:bg-black text-white font-bold py-4 px-8 rounded-xl transition-all shadow-lg btn-hover-lift text-lg"
       >
         {t.main.anotherVideo}
       </button>
